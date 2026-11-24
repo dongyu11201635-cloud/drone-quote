@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>다 날아 - 드론 부품 견적 및 정밀 호환성 검사 플랫폼</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 넷플릭스 스타일 오프닝 인트로 스크린 -->
+  <div class="intro-overlay" id="intro-overlay">
+    <div class="intro-content" id="intro-content">
+      <span class="intro-subtitle">드론 견적 사이트</span>
+      <h1 class="intro-title">다 날아</h1>
+    </div>
+  </div>
+
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <span class="logo-badge">다 날아</span>
+        <h1>드론다나와 <span>견적·호환성 플랫폼</span></h1>
+      </div>
+      <div class="header-actions">
+        <button id="preset-btn" class="btn-outline" title="추천 견적 불러오기">⚡ 추천 5인치 프리셋</button>
+        <button id="reset-btn" class="btn-outline">초기화</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- 왼쪽: 부품 카테고리 및 상품 리스트 -->
+    <section class="catalog-section" id="catalog-section">
+      <!-- 카테고리 배경 워터마크 이미지 (부드러운 전환) -->
+      <div class="category-bg-watermark" id="category-bg-watermark"></div>
+      
+      <div class="category-tabs" id="category-tabs">
+        <!-- JS로 카테고리 탭 생성 -->
+      </div>
+
+      <div class="search-bar-wrap">
+        <input type="text" id="search-input" placeholder="부품명, 제조사, 스펙(예: 6S, 2306, F7) 검색..." />
+        <span id="part-count" class="part-count">0개 상품</span>
+      </div>
+
+      <div class="product-list" id="product-list">
+        <!-- JS로 부품 카드 생성 -->
+      </div>
+    </section>
+
+    <!-- 오른쪽: 내 드론 견적함 & 호환성/성능 검사 -->
+    <aside class="quote-sidebar">
+      <div class="quote-box">
+        <div class="quote-header">
+          <h2>내 드론 견적함</h2>
+          <span class="badge-count" id="selected-count">0 / 8</span>
+        </div>
+
+        <ul class="selected-list" id="selected-list">
+          <!-- JS로 선택된 부품 슬롯 생성 -->
+        </ul>
+
+        <!-- 호환성 및 비행 성능 진단 -->
+        <div class="analysis-panel" id="analysis-panel">
+          <h3>🔍 호환성 & 비행 성능 진단</h3>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-label">예상 총 중량</span>
+              <strong class="metric-value" id="metric-weight">0 g</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">추력 대 중량비 (TWR)</span>
+              <strong class="metric-value" id="metric-twr">-</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">최대 소비 전력</span>
+              <strong class="metric-value" id="metric-power">0 W (0 A)</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">권장 배터리</span>
+              <strong class="metric-value" id="metric-battery">-</strong>
+            </div>
+          </div>
+
+          <div class="compat-messages" id="compat-messages">
+            <p class="msg-info">부품을 선택하면 호환성, 오버슈트(과추력), 소비전력, 배터리 S 적합성을 실시간으로 검사합니다.</p>
+          </div>
+        </div>
+
+        <div class="quote-footer">
+          <div class="total-price-row">
+            <span>총 견적 금액</span>
+            <strong id="total-price">0원</strong>
+          </div>
+          <button id="assemble-btn" class="btn-primary-large">🔧 이 견적으로 조립 신청하기</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 조립 신청 모달 -->
+  <div class="modal-backdrop" id="assemble-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>🔧 드론 전문 조립 신청</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-summary" id="modal-summary"></div>
+        <form id="assemble-form">
+          <div class="form-group">
+            <label for="customer-name">신청자 성함</label>
+            <input type="text" id="customer-name" required placeholder="홍길동" />
+          </div>
+          <div class="form-group">
+            <label for="customer-phone">연락처</label>
+            <input type="tel" id="customer-phone" required placeholder="010-1234-5678" />
+          </div>
+          <div class="form-group">
+            <label for="assemble-option">조립 옵션</label>
+            <select id="assemble-option">
+              <option value="50000">기본 조립 + 납땜 + Betaflight 기본 세팅 (+50,000원)</option>
+              <option value="90000">프리미엄 조립 + PID 튜닝 + 호버링 테스트 비행 (+90,000원)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="customer-memo">요청 사항 (선택)</label>
+            <textarea id="customer-memo" rows="2" placeholder="예: 수신기 바인딩 및 모드2 세팅 부탁드립니다."></textarea>
+          </div>
+          <button type="submit" class="btn-primary-large">조립 신청 완료하기</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
